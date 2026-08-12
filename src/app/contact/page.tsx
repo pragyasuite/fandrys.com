@@ -4,8 +4,10 @@ import Link from "next/link";
 import { ChevronRight, Phone, Mail, MapPin, MessageCircle, ShieldCheck } from "lucide-react";
 import EnquiryForm from "@/components/EnquiryForm";
 
+
+
 export const metadata: Metadata = {
-  title: "Contact & Enquiries | Fandrys India Private Limited",
+  title: "Contact & Enquiries",
   description: "Contact Fandrys India Private Limited in Beed, Maharashtra. Submit an enquiry for piglets, breeding stock, and bulk processed pork exports.",
   alternates: {
     canonical: "https://fandrys.co.in/contact",

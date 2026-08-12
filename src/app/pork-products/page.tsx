@@ -12,8 +12,10 @@ import {
   Award,
 } from "lucide-react";
 
+
+
 export const metadata: Metadata = {
-  title: "Processed Pork & Cold Chain Logistics | Fandrys",
+  title: "Pork Processing & Supply",
   description: "Order FSSAI-compliant processed pork cuts, carcasses, and wholesale portions. Safe refrigerated cold chain shipping from Beed to global trade ports.",
   alternates: {
     canonical: "https://fandrys.co.in/pork-products",

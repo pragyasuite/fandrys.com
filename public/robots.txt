@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://latur-yorkshire-pigfarm.com/sitemap.xml
+Sitemap: https://fandrys.co.in/sitemap.xml

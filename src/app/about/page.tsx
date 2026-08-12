@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Our Farm & Story | Fandrys India Private Limited",
+  title: "Our Story & Farm",
   description: "Learn about Fandrys India Private Limited in Parali, Beed. Read our history of purebred Yorkshire pig breeding and global export compliance.",
   alternates: {
     canonical: "https://fandrys.co.in/about",

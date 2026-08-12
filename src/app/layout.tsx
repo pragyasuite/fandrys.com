@@ -6,8 +6,8 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   metadataBase: new URL("https://fandrys.co.in"),
   title: {
-    default: "Fandrys India Private Limited | Large White Yorkshire Pig Farm Beed",
-    template: "%s | Fandrys India Private Limited",
+    default: "Fandrys | Large White Yorkshire Pig Farm Beed",
+    template: "%s | Fandrys",
   },
   description: "Fandrys India Private Limited is a premium Large White Yorkshire pig farm and pork exporter in Beed, Maharashtra, supplying quality piglets and pork cuts.",
   alternates: {

@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight, ShieldCheck, Lock, Eye, FileText } from "lucide-react";
 
+
+
 export const metadata: Metadata = {
-  title: "Privacy Policy | Fandrys India Private Limited",
+  title: "Privacy Policy",
   description: "Read the privacy policy of Fandrys India Private Limited. Learn how we handle and protect your commercial data and enquiry information.",
   alternates: {
     canonical: "https://fandrys.co.in/privacy-policy",

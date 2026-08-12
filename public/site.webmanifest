@@ -1,0 +1,20 @@
+{
+  "name": "Fandrys India Private Limited",
+  "short_name": "Fandrys",
+  "icons": [
+    {
+      "src": "/images/logo-icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/logo-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#c22026",
+  "background_color": "#FAF9F6",
+  "display": "standalone",
+  "start_url": "/"
+}

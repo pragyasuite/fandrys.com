@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight, ShieldCheck, Scale, DollarSign, Truck } from "lucide-react";
 
+
+
 export const metadata: Metadata = {
-  title: "Terms of Service | Fandrys India Private Limited",
+  title: "Terms of Service",
   description: "Read the terms of service for Fandrys India Private Limited. Outlines commercial trade terms, wholesale orders, and export container shipping.",
   alternates: {
     canonical: "https://fandrys.co.in/terms-of-service",
