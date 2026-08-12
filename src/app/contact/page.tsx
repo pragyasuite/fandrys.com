@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "Contact & Enquiries",
   description: "Contact Fandrys India Private Limited in Beed, Maharashtra. Submit an enquiry for piglets, breeding stock, and bulk processed pork exports.",
   alternates: {
-    canonical: "https://fandrys.co.in/contact",
+    canonical: "https://fandrys.com/contact",
   },
 };
 
@@ -105,8 +105,8 @@ export default function ContactPage() {
                   <span className="block text-[10px] uppercase font-bold text-foreground/50 tracking-wider">
                     Email Address
                   </span>
-                  <a href="mailto:info@fandrys.co.in" className="font-body font-semibold text-sm text-foreground/90 break-all hover:text-forest transition-colors mt-1 block">
-                    info@fandrys.co.in
+                  <a href="mailto:info@fandrys.com" className="font-body font-semibold text-sm text-foreground/90 break-all hover:text-forest transition-colors mt-1 block">
+                    info@fandrys.com
                   </a>
                 </div>
               </div>

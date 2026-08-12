@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Large White Yorkshire Pigs",
   description: "Purchase high-grade Large White Yorkshire piglets and fully grown breeding stock from Fandrys. Purebred genetics fed on 100% top-quality dry feed.",
   alternates: {
-    canonical: "https://fandrys.co.in/livestock",
+    canonical: "https://fandrys.com/livestock",
   },
 };
 

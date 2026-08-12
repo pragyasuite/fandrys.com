@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://fandrys.co.in"),
+  metadataBase: new URL("https://fandrys.com"),
   title: {
     default: "Fandrys | Large White Yorkshire Pig Farm Beed",
     template: "%s | Fandrys",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     "APEDA certified pig farm",
     "International pork supplier",
     "Large White Yorkshire export",
-    "fandrys.co.in"
+    "fandrys.com"
   ],
   openGraph: {
     title: "Fandrys India Private Limited | Large White Yorkshire Pig Farm Beed",

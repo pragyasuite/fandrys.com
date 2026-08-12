@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "Terms of Service",
   description: "Read the terms of service for Fandrys India Private Limited. Outlines commercial trade terms, wholesale orders, and export container shipping.",
   alternates: {
-    canonical: "https://fandrys.co.in/terms-of-service",
+    canonical: "https://fandrys.com/terms-of-service",
   },
 };
 
@@ -73,7 +73,7 @@ export default function TermsOfServicePage() {
             <div className="space-y-4">
               <h2 className="font-display font-extrabold text-2xl text-forest">1. Agreement to Terms</h2>
               <p>
-                Welcome to the website of <strong>Fandrys India Private Limited</strong>. By viewing, browsing, or submitting commercial quotes on our website (fandrys.co.in), you acknowledge that you have read, understood, and agreed to be bound by these Terms of Service. If you disagree with any portion of these terms, you must exit this portal immediately.
+                Welcome to the website of <strong>Fandrys India Private Limited</strong>. By viewing, browsing, or submitting commercial quotes on our website (fandrys.com), you acknowledge that you have read, understood, and agreed to be bound by these Terms of Service. If you disagree with any portion of these terms, you must exit this portal immediately.
               </p>
             </div>
 
@@ -130,7 +130,7 @@ export default function TermsOfServicePage() {
               <div className="bg-beige/40 p-6 rounded-2xl border border-accent/15 mt-4 space-y-2">
                 <p className="font-bold text-forest">Fandrys India Private Limited</p>
                 <p className="text-xs md:text-sm">A/P Guttewadi, Gangakhed Road, Tal Parali, Dist Beed, MH, India - 431515</p>
-                <p className="text-xs md:text-sm font-semibold">Email: info@fandrys.co.in</p>
+                <p className="text-xs md:text-sm font-semibold">Email: info@fandrys.com</p>
               </div>
             </div>
           </div>

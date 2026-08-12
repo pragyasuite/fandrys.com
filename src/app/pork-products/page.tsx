@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   title: "Pork Processing & Supply",
   description: "Order FSSAI-compliant processed pork cuts, carcasses, and wholesale portions. Safe refrigerated cold chain shipping from Beed to global trade ports.",
   alternates: {
-    canonical: "https://fandrys.co.in/pork-products",
+    canonical: "https://fandrys.com/pork-products",
   },
 };
 

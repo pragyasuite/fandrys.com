@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "Privacy Policy",
   description: "Read the privacy policy of Fandrys India Private Limited. Learn how we handle and protect your commercial data and enquiry information.",
   alternates: {
-    canonical: "https://fandrys.co.in/privacy-policy",
+    canonical: "https://fandrys.com/privacy-policy",
   },
 };
 
@@ -123,7 +123,7 @@ export default function PrivacyPolicyPage() {
               <div className="bg-beige/40 p-6 rounded-2xl border border-accent/15 mt-4 space-y-2">
                 <p className="font-bold text-forest">Fandrys India Private Limited</p>
                 <p className="text-xs md:text-sm">A/P Guttewadi, Gangakhed Road, Tal Parali, Dist Beed, MH, India - 431515</p>
-                <p className="text-xs md:text-sm font-semibold">Email: info@fandrys.co.in</p>
+                <p className="text-xs md:text-sm font-semibold">Email: info@fandrys.com</p>
               </div>
             </div>
           </div>

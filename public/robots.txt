@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://fandrys.co.in/sitemap.xml
+Sitemap: https://fandrys.com/sitemap.xml

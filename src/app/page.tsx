@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Yorkshire Pig Farm & Pork Exporter",
   description: "Explore Fandrys India Private Limited, a premier Large White Yorkshire pig farm in Beed, Maharashtra, supplying quality piglets and processed pork globally.",
   alternates: {
-    canonical: "https://fandrys.co.in",
+    canonical: "https://fandrys.com",
   },
 };
 
