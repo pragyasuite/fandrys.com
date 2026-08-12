@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -12,6 +13,9 @@ export const metadata: Metadata = {
   description: "Fandrys India Private Limited is a premium Large White Yorkshire pig farm and pork exporter in Beed, Maharashtra, supplying quality piglets and pork cuts.",
   alternates: {
     canonical: "/",
+  },
+  verification: {
+    google: "zIqfIMQs1DXl5ZvzphKRE82YTtKqefYSG9yd0N5sQWE",
   },
   keywords: [
     "Fandrys India Private Limited",
@@ -46,6 +50,20 @@ export default function RootLayout({
       className="h-full antialiased"
     >
       <body className="min-h-full flex flex-col bg-background text-foreground selection:bg-accent selection:text-forest">
+        {/* Google Analytics (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-W490QZN6G1"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-W490QZN6G1');
+          `}
+        </Script>
+
         <Header />
         <main className="flex-grow">{children}</main>
         <Footer />
