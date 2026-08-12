@@ -1,7 +1,14 @@
-"use client";
-
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight, ShieldCheck, Scale, DollarSign, Truck } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Terms of Service | Fandrys India Private Limited",
+  description: "Read the terms of service for Fandrys India Private Limited. Outlines commercial trade terms, wholesale orders, and export container shipping.",
+  alternates: {
+    canonical: "https://fandrys.co.in/terms-of-service",
+  },
+};
 
 export default function TermsOfServicePage() {
   return (
@@ -121,7 +128,7 @@ export default function TermsOfServicePage() {
               <div className="bg-beige/40 p-6 rounded-2xl border border-accent/15 mt-4 space-y-2">
                 <p className="font-bold text-forest">Fandrys India Private Limited</p>
                 <p className="text-xs md:text-sm">A/P Guttewadi, Gangakhed Road, Tal Parali, Dist Beed, MH, India - 431515</p>
-                <p className="text-xs md:text-sm font-semibold">Email: info@fandrys.com</p>
+                <p className="text-xs md:text-sm font-semibold">Email: info@fandrys.co.in</p>
               </div>
             </div>
           </div>

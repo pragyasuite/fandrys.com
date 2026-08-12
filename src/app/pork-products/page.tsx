@@ -1,5 +1,4 @@
-"use client";
-
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -12,6 +11,14 @@ import {
   ClipboardCheck,
   Award,
 } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Processed Pork & Cold Chain Logistics | Fandrys",
+  description: "Order FSSAI-compliant processed pork cuts, carcasses, and wholesale portions. Safe refrigerated cold chain shipping from Beed to global trade ports.",
+  alternates: {
+    canonical: "https://fandrys.co.in/pork-products",
+  },
+};
 
 export default function PorkProductsPage() {
   const products = [
@@ -222,7 +229,7 @@ export default function PorkProductsPage() {
       {/* 5. Call to action enquiry */}
       <section className="bg-forest py-24 text-center px-6 md:px-12 relative overflow-hidden border-t border-accent/20">
         <div className="max-w-2xl mx-auto space-y-6 relative z-10 text-warm-white">
-          <Award className="h-10 w-10 mx-auto" />
+          <Award className="h-10 w-10 text-accent mx-auto" />
           <h2 className="font-display font-extrabold text-3xl text-warm-white leading-tight">
             Order Processed Pork in Wholesale Volumes
           </h2>

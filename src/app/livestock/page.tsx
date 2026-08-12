@@ -1,8 +1,15 @@
-"use client";
-
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight, ArrowRight, ShieldAlert, Award, FileText, CheckCircle } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Large White Yorkshire Pigs & Piglets | Fandrys",
+  description: "Purchase high-grade Large White Yorkshire piglets and fully grown breeding stock from Fandrys. Purebred genetics fed on 100% top-quality dry feed.",
+  alternates: {
+    canonical: "https://fandrys.co.in/livestock",
+  },
+};
 
 export default function LivestockPage() {
   return (

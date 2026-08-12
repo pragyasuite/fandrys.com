@@ -1,5 +1,4 @@
-"use client";
-
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -14,6 +13,14 @@ import {
   Shield,
   ArrowRight,
 } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Our Farm & Story | Fandrys India Private Limited",
+  description: "Learn about Fandrys India Private Limited in Parali, Beed. Read our history of purebred Yorkshire pig breeding and global export compliance.",
+  alternates: {
+    canonical: "https://fandrys.co.in/about",
+  },
+};
 
 export default function AboutPage() {
   return (

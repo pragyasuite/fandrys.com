@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
 :root {
@@ -8,6 +9,8 @@
   --charcoal: #121212;
   --brand-gray: #5E6E7A; /* Fandrys Slate Gray */
   --light-gray: #F3F4F6; /* Sleek light gray instead of warm beige */
+  --font-manrope: "Manrope", sans-serif;
+  --font-inter: "Inter", sans-serif;
 }
 
 @theme inline {
@@ -50,6 +53,5 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--forest-green);
+  background: var(--brand-red);
 }
-

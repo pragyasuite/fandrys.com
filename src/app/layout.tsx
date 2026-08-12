@@ -1,27 +1,18 @@
 import type { Metadata } from "next";
-import { Manrope, Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-const manrope = Manrope({
-  variable: "--font-manrope",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-});
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-});
-
 export const metadata: Metadata = {
+  metadataBase: new URL("https://fandrys.co.in"),
   title: {
     default: "Fandrys India Private Limited | Large White Yorkshire Pig Farm Beed",
     template: "%s | Fandrys India Private Limited",
   },
-  description: "Fandrys India Private Limited is a commercial Large White Yorkshire pig farm in Beed, Maharashtra. Supplying certified breeding stock, active piglets, and premium processed pork to domestic and international export markets worldwide.",
+  description: "Fandrys India Private Limited is a premium Large White Yorkshire pig farm and pork exporter in Beed, Maharashtra, supplying quality piglets and pork cuts.",
+  alternates: {
+    canonical: "/",
+  },
   keywords: [
     "Fandrys India Private Limited",
     "Fandrys pig farm",
@@ -44,11 +35,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${inter.variable} h-full antialiased`}
+      className="h-full antialiased"
     >
       <body className="min-h-full flex flex-col bg-background text-foreground selection:bg-accent selection:text-forest">
         <Header />
