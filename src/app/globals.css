@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+:root {
+  --background: #FAF9F6;
+  --foreground: #1A1A1A;
+  --brand-red: #c22026; /* Fandrys Red */
+  --brand-red-light: #E53935; /* Fandrys Red Light */
+  --charcoal: #121212;
+  --brand-gray: #5E6E7A; /* Fandrys Slate Gray */
+  --light-gray: #F3F4F6; /* Sleek light gray instead of warm beige */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-forest: var(--brand-red); /* Mapped to Fandrys Red */
+  --color-forest-light: var(--brand-red-light); /* Mapped to Fandrys Red Light */
+  --color-charcoal: var(--charcoal);
+  --color-beige: var(--light-gray); /* Mapped to Fandrys Light Gray */
+  --color-warm-white: #FAF9F6;
+  --color-accent: var(--brand-gray); /* Mapped to Fandrys Slate Gray */
+  
+  --font-display: var(--font-manrope);
+  --font-body: var(--font-inter);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-manrope), system-ui, -apple-system, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Custom scrollbar to keep layout looking premium */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: #C5A880;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--forest-green);
+}
+
