@@ -24,7 +24,7 @@ const slides: Slide[] = [
   },
   {
     image: "/images/hero-piglets.jpg",
-    headline: "Purebred Yorkshire Piglets for Global Markets.",
+    headline: "Purebreed Yorkshire Piglets for Global Markets.",
     supporting: "We breed and raise healthy, active piglets under strict biosecurity, optimized for international breeding programs and global supply chains.",
     ctaText: "View Our Livestock",
     ctaHref: "/livestock",
