@@ -589,12 +589,13 @@ export default function HomeClient() {
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link
-              href="/contact"
+              href="/enquiry"
               className="group flex items-center justify-center gap-2 bg-warm-white text-forest hover:bg-accent hover:text-warm-white px-8 py-4 rounded-full font-body font-bold text-xs tracking-wider uppercase transition-all duration-300 shadow-md"
             >
               Send Enquiry
               <FileText className="h-4 w-4" />
             </Link>
+
             <a
               href="https://wa.me/919028644499"
               target="_blank"

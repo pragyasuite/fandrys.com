@@ -1,9 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Phone, Mail, MapPin, MessageCircle, ShieldCheck, Award } from "lucide-react";
+import { Phone, Mail, MapPin, MessageCircle, ShieldCheck, Award, Star, ExternalLink } from "lucide-react";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const googleShareUrl = "https://share.google/II9iq7YVZUzeq8xrX";
 
   return (
     <footer className="bg-[#121212] text-warm-white relative overflow-hidden border-t border-white/5 pt-20 pb-8">
@@ -30,7 +31,8 @@ export default function Footer() {
           <p className="text-white/80 text-sm leading-relaxed max-w-sm">
             Fandrys India Private Limited operates a state-of-the-art commercial Large White Yorkshire breeding farm and pork processing division in Parali, Beed, Maharashtra. We maintain strict biosafety and cold chain standards to supply national markets.
           </p>
-          <div className="flex gap-3 pt-2">
+          
+          <div className="flex flex-wrap gap-3 pt-2">
             <a
               href="https://wa.me/919028644499"
               target="_blank"
@@ -54,6 +56,16 @@ export default function Footer() {
             >
               <Mail className="h-4.5 w-4.5" />
             </a>
+            <a
+              href={googleShareUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/[0.06] border border-white/10 text-xs text-amber-400 hover:bg-white/10 transition-all font-body font-semibold"
+            >
+              <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
+              Google Review
+              <ExternalLink className="h-3 w-3" />
+            </a>
           </div>
         </div>
 
@@ -62,7 +74,7 @@ export default function Footer() {
           <h3 className="font-display font-bold text-sm tracking-wider uppercase text-white">
             Quick Links
           </h3>
-          <ul className="space-y-3.5 text-sm text-white/80 font-body">
+          <ul className="space-y-3 text-sm text-white/80 font-body">
             <li>
               <Link href="/about" className="group flex items-center gap-2 hover:text-[#C5A880] transition-all duration-200">
                 <span className="w-1.5 h-1.5 rounded-full bg-forest opacity-0 group-hover:opacity-100 transition-all duration-200 shrink-0" />
@@ -79,6 +91,12 @@ export default function Footer() {
               <Link href="/pork-products" className="group flex items-center gap-2 hover:text-[#C5A880] transition-all duration-200">
                 <span className="w-1.5 h-1.5 rounded-full bg-forest opacity-0 group-hover:opacity-100 transition-all duration-200 shrink-0" />
                 <span className="group-hover:translate-x-1 transition-transform duration-200">Pork Products</span>
+              </Link>
+            </li>
+            <li>
+              <Link href="/enquiry" className="group flex items-center gap-2 hover:text-[#C5A880] transition-all duration-200">
+                <span className="w-1.5 h-1.5 rounded-full bg-forest opacity-0 group-hover:opacity-100 transition-all duration-200 shrink-0" />
+                <span className="group-hover:translate-x-1 transition-transform duration-200">Send Enquiry</span>
               </Link>
             </li>
             <li>

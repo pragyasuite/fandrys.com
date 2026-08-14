@@ -3,8 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight, ArrowRight, ShieldAlert, Award, FileText, CheckCircle } from "lucide-react";
 
-
-
 export const metadata: Metadata = {
   title: "Large White Yorkshire Pigs",
   description: "Purchase high-grade Large White Yorkshire piglets and fully grown breeding stock from Fandrys. Purebred genetics fed on 100% top-quality dry feed.",
@@ -58,7 +56,7 @@ export default function LivestockPage() {
             </div>
           </div>
           <Link
-            href="/contact"
+            href="/enquiry"
             className="group flex items-center gap-2 bg-forest text-warm-white hover:bg-forest-light px-6 py-3 rounded-full font-body font-bold text-xs tracking-wider uppercase transition-colors"
           >
             Check Availability
@@ -132,7 +130,7 @@ export default function LivestockPage() {
 
               <div className="pt-4">
                 <Link
-                  href="/contact?type=adult"
+                  href="/enquiry?type=adult"
                   className="group inline-flex items-center gap-2 bg-forest text-warm-white hover:bg-forest-light px-8 py-3.5 rounded-full font-body font-bold text-xs tracking-wider uppercase transition-all duration-300 shadow-md hover:shadow-lg"
                 >
                   Enquire About Grown Stock
@@ -182,7 +180,7 @@ export default function LivestockPage() {
 
               <div className="pt-4">
                 <Link
-                  href="/contact?type=piglets"
+                  href="/enquiry?type=piglets"
                   className="group inline-flex items-center gap-2 bg-forest text-warm-white hover:bg-forest-light px-8 py-3.5 rounded-full font-body font-bold text-xs tracking-wider uppercase transition-all duration-300 shadow-md hover:shadow-lg"
                 >
                   Enquire About Piglets
@@ -285,7 +283,7 @@ export default function LivestockPage() {
           </div>
           <div>
             <Link
-              href="/contact"
+              href="/enquiry"
               className="group inline-flex items-center gap-2 bg-warm-white text-forest hover:bg-accent hover:text-warm-white px-8 py-4 rounded-full font-body font-bold text-xs tracking-wider uppercase transition-all duration-300 shadow-lg"
             >
               Send Enquiry

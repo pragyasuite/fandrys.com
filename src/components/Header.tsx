@@ -29,6 +29,7 @@ export default function Header() {
     { name: "About & Farm", href: "/about" },
     { name: "Livestock", href: "/livestock" },
     { name: "Pork Products", href: "/pork-products" },
+    { name: "Enquiry", href: "/enquiry" },
     { name: "Contact", href: "/contact" },
   ];
 
@@ -83,7 +84,7 @@ export default function Header() {
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center">
           <Link
-            href="/contact"
+            href="/enquiry"
             className="group flex items-center gap-2 bg-forest text-warm-white hover:bg-forest-light px-6 py-2.5 rounded-full font-body font-semibold text-xs tracking-wider transition-all duration-300 shadow-md hover:shadow-lg"
           >
             Send Enquiry
@@ -128,7 +129,7 @@ export default function Header() {
                 );
               })}
               <Link
-                href="/contact"
+                href="/enquiry"
                 onClick={() => setIsOpen(false)}
                 className="flex items-center justify-center gap-2 bg-forest text-warm-white hover:bg-forest-light py-3 rounded-xl font-body font-bold text-sm tracking-wide transition-all shadow-md mt-2"
               >

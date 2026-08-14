@@ -12,8 +12,6 @@ import {
   Award,
 } from "lucide-react";
 
-
-
 export const metadata: Metadata = {
   title: "Pork Processing & Supply",
   description: "Order FSSAI-compliant processed pork cuts, carcasses, and wholesale portions. Safe refrigerated cold chain shipping from Beed to global trade ports.",
@@ -181,7 +179,7 @@ export default function PorkProductsPage() {
                     </ul>
                   </div>
                   <Link
-                    href={`/contact?type=meat&product=${encodeURIComponent(prod.title)}`}
+                    href={`/enquiry?type=meat&product=${encodeURIComponent(prod.title)}`}
                     className="group inline-flex items-center justify-center gap-2 bg-forest text-warm-white hover:bg-forest-light px-6 py-3 rounded-xl font-body font-bold text-xs tracking-wider uppercase transition-all shadow-sm"
                   >
                     Request Pricing
@@ -239,7 +237,7 @@ export default function PorkProductsPage() {
             Partner with Fandrys India Private Limited for institutional pork supply, wholesale orders, and continuous cold chain supply routes to global export destinations.
           </p>
           <Link
-            href="/contact?type=meat"
+            href="/enquiry?type=meat"
             className="group inline-flex items-center gap-2 bg-warm-white text-forest hover:bg-accent hover:text-warm-white px-8 py-3.5 rounded-full font-body font-bold text-xs tracking-wider uppercase transition-all duration-300 shadow-md"
           >
             Submit Meat Supply Enquiry
