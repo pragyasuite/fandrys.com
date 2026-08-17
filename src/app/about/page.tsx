@@ -66,7 +66,7 @@ export default function AboutPage() {
               Established approximately one year ago (in 2025), <strong>Fandrys India Private Limited</strong> began with a clear commercial focus: to establish a premier breeding, raising, and hygienic pork processing facility for <strong>Large White Yorkshire pigs</strong> in Parali, Beed, Maharashtra, serving regional demands and building dedicated export channels to supply clients all over the world.
             </p>
             <p className="font-body text-foreground/75 leading-relaxed text-sm md:text-base">
-              Today, our active population has grown to <strong>200+ healthy Large White Yorkshire pigs</strong> with a total farm capacity of <strong>500 animals</strong> across <strong>1 acre</strong> of state-of-the-art facilities. We feed our herd with 100% premium quality dry feed for optimal development. Our commercial sales cover weaned piglets, fully grown finishing stock, and processed meat cuts, serving the expanding needs of domestic and global export markets.
+              Today, our active population has grown to <strong>200+ healthy Large White Yorkshire pigs</strong> with a total farm capacity of <strong>500+ animals</strong> across <strong>1 acre</strong> of state-of-the-art facilities. We feed our herd with 100% premium quality dry feed for optimal development. Our commercial sales cover weaned piglets, fully grown finishing stock, and processed meat cuts, serving the expanding needs of domestic and global export markets.
             </p>
             <div className="bg-beige/40 p-6 rounded-2xl border border-accent/15 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>

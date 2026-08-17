@@ -117,7 +117,7 @@ export default function HomeClient() {
                     <Warehouse className="h-4 w-4 text-white/50 group-hover:text-white transition-colors" />
                   </div>
                   <span className="font-display font-extrabold text-lg text-white leading-none">
-                    500 Animals
+                    500+ Animals
                   </span>
                 </div>
 
