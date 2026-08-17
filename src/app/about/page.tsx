@@ -16,7 +16,7 @@ import {
 
 export const metadata: Metadata = {
   title: "Our Story & Farm",
-  description: "Learn about Fandrys India Private Limited in Parali, Beed. Read our history of purebred Yorkshire pig breeding and global export compliance.",
+  description: "Learn about Fandrys India Private Limited in Parali, Beed. Read our history of purebreed Yorkshire pig breeding and global export compliance.",
   alternates: {
     canonical: "https://fandrys.com/about",
   },

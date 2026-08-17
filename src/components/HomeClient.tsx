@@ -100,7 +100,7 @@ export default function HomeClient() {
                   200+
                 </div>
                 <p className="font-body text-xs text-white/85 mt-2 leading-relaxed">
-                  Healthy commercial Yorkshire pigs bred and raised under managed biosafety protocols.
+                  Healthy commercial Yorkshire pigs breed and raised under managed biosafety protocols.
                 </p>
               </div>
 
