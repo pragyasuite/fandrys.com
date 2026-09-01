@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
-// Backend recipient list as requested (never rendered on frontend UI)
+// Backend recipient list as requested (never exposed on frontend UI)
 const RECIPIENTS = ["info@fandrys.com", "dataenquiry70@gmail.com"];
 
 export async function POST(req: Request) {
@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     // Validate required fields
     if (!name || !phone || !email || !message) {
       return NextResponse.json(
-        { success: false, error: "Missing required fields (Name, Phone, Email, Message)." },
+        { success: false, error: "Please fill in all required fields (Name, Phone, Email, Message)." },
         { status: 400 }
       );
     }
@@ -91,37 +91,79 @@ export async function POST(req: Request) {
       ${message}
     `;
 
-    // Configure Mail Transporter
+    let emailSent = false;
+
+    // 1. Primary Strategy: SMTP via nodemailer if env credentials exist
     const smtpHost = process.env.SMTP_HOST;
     const smtpPort = parseInt(process.env.SMTP_PORT || "587");
     const smtpUser = process.env.SMTP_USER;
     const smtpPass = process.env.SMTP_PASS;
 
     if (smtpHost && smtpUser && smtpPass) {
-      const transporter = nodemailer.createTransport({
-        host: smtpHost,
-        port: smtpPort,
-        secure: smtpPort === 465,
-        auth: {
-          user: smtpUser,
-          pass: smtpPass,
-        },
-      });
+      try {
+        const transporter = nodemailer.createTransport({
+          host: smtpHost,
+          port: smtpPort,
+          secure: smtpPort === 465,
+          auth: {
+            user: smtpUser,
+            pass: smtpPass,
+          },
+        });
 
-      await transporter.sendMail({
-        from: `"${name} via Fandrys Portal" <${smtpUser}>`,
-        replyTo: email,
-        to: RECIPIENTS.join(", "),
-        subject: `New Enquiry [${enquiryType}]: ${name}`,
-        text: plainTextContent,
-        html: htmlContent,
-      });
+        await transporter.sendMail({
+          from: `"${name} via Fandrys Portal" <${smtpUser}>`,
+          replyTo: email,
+          to: RECIPIENTS.join(", "),
+          subject: `New Enquiry [${enquiryType}]: ${name}`,
+          text: plainTextContent,
+          html: htmlContent,
+        });
 
-      console.log(`[Enquiry API] Email sent to ${RECIPIENTS.join(", ")}`);
-    } else {
-      // Fallback log when SMTP environment variables are being configured
-      console.log(`[Enquiry API] New Submission Received (SMTP credentials pending in .env):`);
-      console.log({ name, company, phone, email, country, enquiryType, quantity, message, recipients: RECIPIENTS });
+        emailSent = true;
+        console.log(`[Enquiry API] SMTP email dispatched to ${RECIPIENTS.join(", ")}`);
+      } catch (smtpErr) {
+        console.error("[Enquiry API] SMTP Transport error:", smtpErr);
+      }
+    }
+
+    // 2. Secondary Strategy: Direct FormSubmit Webhook dispatch for instant delivery
+    if (!emailSent) {
+      try {
+        const formPayload = {
+          _subject: `New Fandrys Enquiry [${enquiryType}]: ${name}`,
+          _template: "table",
+          _captcha: "false",
+          "Customer Name": name,
+          "Company Name": company || "N/A",
+          "Phone Number": phone,
+          "Customer Email": email,
+          "Country": country || "India",
+          "Enquiry Type": enquiryType,
+          "Quantity Required": quantity || "Not specified",
+          "Message": message,
+          "Submission Time": `${timestamp} IST`,
+        };
+
+        // Dispatch to both email endpoints via FormSubmit API
+        await Promise.allSettled(
+          RECIPIENTS.map((recipientEmail) =>
+            fetch(`https://formsubmit.co/ajax/${recipientEmail}`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+              },
+              body: JSON.stringify(formPayload),
+            })
+          )
+        );
+
+        emailSent = true;
+        console.log(`[Enquiry API] Webhook email dispatched to ${RECIPIENTS.join(", ")}`);
+      } catch (webhookErr) {
+        console.error("[Enquiry API] Webhook dispatch error:", webhookErr);
+      }
     }
 
     return NextResponse.json({

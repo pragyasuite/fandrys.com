@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Send, CheckCircle2, AlertCircle } from "lucide-react";
-import { motion } from "framer-motion";
+import { Send, CheckCircle2, AlertCircle, X, ShieldCheck, Clock, FileText } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function EnquiryForm() {
   const [formData, setFormData] = useState({
@@ -18,6 +18,8 @@ export default function EnquiryForm() {
 
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [referenceCode, setReferenceCode] = useState("");
+  const [submittedDetails, setSubmittedDetails] = useState({ name: "", enquiryType: "" });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -47,17 +49,12 @@ export default function EnquiryForm() {
       const data = await response.json();
 
       if (response.ok && data.success) {
+        // Generate a reference code for the customer
+        const generatedCode = `FND-${Math.floor(100000 + Math.random() * 900000)}`;
+        setReferenceCode(generatedCode);
+        setSubmittedDetails({ name: formData.name, enquiryType: formData.enquiryType });
+        
         setStatus("success");
-        setFormData({
-          name: "",
-          company: "",
-          phone: "",
-          email: "",
-          country: "India",
-          enquiryType: "General Enquiry",
-          quantity: "",
-          message: "",
-        });
       } else {
         setStatus("error");
         setErrorMessage(data.error || "Failed to submit enquiry. Please try again.");
@@ -68,26 +65,105 @@ export default function EnquiryForm() {
     }
   };
 
-  return (
-    <div className="bg-warm-white p-8 md:p-12 rounded-2xl border border-accent/20 shadow-xl max-w-3xl mx-auto">
-      {status === "success" && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="mb-8 p-6 bg-forest/5 border border-forest/20 rounded-xl flex items-start gap-4 text-forest"
-        >
-          <CheckCircle2 className="h-6 w-6 text-accent shrink-0 mt-0.5" />
-          <div>
-            <h3 className="font-display font-bold text-lg text-forest mb-1">
-              Enquiry Submitted Successfully!
-            </h3>
-            <p className="font-body text-sm text-foreground/80 leading-relaxed">
-              Thank you for contacting us. Our farm management team will review your requirements and respond via email or phone shortly.
-            </p>
-          </div>
-        </motion.div>
-      )}
+  const handleCloseModal = () => {
+    setStatus("idle");
+    setFormData({
+      name: "",
+      company: "",
+      phone: "",
+      email: "",
+      country: "India",
+      enquiryType: "General Enquiry",
+      quantity: "",
+      message: "",
+    });
+  };
 
+  return (
+    <div className="bg-warm-white p-8 md:p-12 rounded-2xl border border-accent/20 shadow-xl max-w-3xl mx-auto relative">
+      
+      {/* 1. PROFESSIONAL SUCCESS POPUP MODAL */}
+      <AnimatePresence>
+        {status === "success" && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/65 backdrop-blur-md">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ type: "spring", duration: 0.5, bounce: 0.3 }}
+              className="bg-warm-white max-w-lg w-full rounded-3xl border border-accent/30 shadow-2xl overflow-hidden relative"
+            >
+              {/* Brand Color Header Bar */}
+              <div className="bg-gradient-to-r from-forest via-[#9A1218] to-forest h-3 w-full" />
+              
+              {/* Close Icon */}
+              <button
+                onClick={handleCloseModal}
+                className="absolute top-5 right-5 p-2 text-foreground/40 hover:text-forest hover:bg-black/5 rounded-full transition-colors"
+                aria-label="Close dialog"
+              >
+                <X className="h-5 w-5" />
+              </button>
+
+              <div className="p-8 md:p-10 text-center space-y-6">
+                {/* Glowing Checkmark Badge */}
+                <div className="relative w-20 h-20 mx-auto flex items-center justify-center">
+                  <div className="absolute inset-0 bg-forest/15 rounded-full animate-ping opacity-75" />
+                  <div className="relative bg-forest text-warm-white p-5 rounded-full shadow-lg border border-accent/30">
+                    <CheckCircle2 className="h-10 w-10 text-warm-white" />
+                  </div>
+                </div>
+
+                {/* Title & Body Text */}
+                <div className="space-y-2">
+                  <h3 className="font-display font-extrabold text-2xl md:text-3xl text-forest tracking-tight">
+                    Enquiry Submitted!
+                  </h3>
+                  <p className="font-body text-foreground/80 text-sm md:text-base leading-relaxed">
+                    Thank you, <span className="font-bold text-forest">{submittedDetails.name}</span>. Your enquiry has been received and dispatched to our farm office. We will get back to you shortly.
+                  </p>
+                </div>
+
+                {/* Reference Details Box */}
+                <div className="bg-beige/40 p-5 rounded-2xl border border-accent/20 space-y-3 text-left font-body">
+                  <div className="flex items-center justify-between border-b border-accent/15 pb-2 text-xs">
+                    <span className="text-foreground/60 uppercase font-bold tracking-wider">Reference Code:</span>
+                    <span className="font-mono font-bold text-forest bg-forest/10 px-2.5 py-1 rounded-md text-sm">{referenceCode}</span>
+                  </div>
+                  <div className="flex items-center justify-between text-xs pt-1">
+                    <span className="text-foreground/60 flex items-center gap-1">
+                      <FileText className="h-3.5 w-3.5 text-accent" /> Category:
+                    </span>
+                    <span className="font-semibold text-foreground">{submittedDetails.enquiryType}</span>
+                  </div>
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-foreground/60 flex items-center gap-1">
+                      <Clock className="h-3.5 w-3.5 text-accent" /> Expected Response:
+                    </span>
+                    <span className="font-semibold text-forest">Within 24 Hours</span>
+                  </div>
+                </div>
+
+                {/* Security Note */}
+                <div className="flex items-center justify-center gap-1.5 text-[11px] text-foreground/60 font-body">
+                  <ShieldCheck className="h-4 w-4 text-forest shrink-0" />
+                  <span>A copy of your enquiry has been sent to our management team.</span>
+                </div>
+
+                {/* Action Button */}
+                <button
+                  onClick={handleCloseModal}
+                  className="w-full bg-forest text-warm-white hover:bg-forest-light py-3.5 rounded-xl font-body font-bold text-xs tracking-wider uppercase transition-all shadow-md hover:shadow-lg"
+                >
+                  Done / Return to Portal
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* 2. SUBMISSION ERROR ALERT */}
       {status === "error" && (
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
@@ -106,6 +182,7 @@ export default function EnquiryForm() {
         </motion.div>
       )}
 
+      {/* 3. ENQUIRY FORM */}
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Full Name */}
