@@ -33,24 +33,38 @@ export default function EnquiryForm() {
     }
 
     setStatus("submitting");
+    setErrorMessage("");
 
-    // Simulate server request
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      setStatus("success");
-      setFormData({
-        name: "",
-        company: "",
-        phone: "",
-        email: "",
-        country: "India",
-        enquiryType: "General Enquiry",
-        quantity: "",
-        message: "",
+      const response = await fetch("/api/enquiry", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setStatus("success");
+        setFormData({
+          name: "",
+          company: "",
+          phone: "",
+          email: "",
+          country: "India",
+          enquiryType: "General Enquiry",
+          quantity: "",
+          message: "",
+        });
+      } else {
+        setStatus("error");
+        setErrorMessage(data.error || "Failed to submit enquiry. Please try again.");
+      }
     } catch {
       setStatus("error");
-      setErrorMessage("An unexpected error occurred. Please try again later.");
+      setErrorMessage("An unexpected network error occurred. Please try again later.");
     }
   };
 
