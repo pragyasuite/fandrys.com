@@ -93,12 +93,44 @@ export async function POST(req: Request) {
 
     let emailSent = false;
 
-    // 1. Primary Strategy: SMTP via nodemailer if env credentials exist
-    const smtpHost = process.env.SMTP_HOST;
-    const smtpPort = parseInt(process.env.SMTP_PORT || "587");
-    const smtpUser = process.env.SMTP_USER;
-    const smtpPass = process.env.SMTP_PASS;
+    // Resolve Coolify Mail Service or standard SMTP environment variables
+    const smtpHost =
+      process.env.COOLIFY_MAIL_HOST ||
+      process.env.COOLIFY_SMTP_HOST ||
+      process.env.MAIL_HOST ||
+      process.env.SMTP_HOST ||
+      process.env.MAILSERVER_HOST;
 
+    const smtpPort = parseInt(
+      process.env.COOLIFY_MAIL_PORT ||
+      process.env.COOLIFY_SMTP_PORT ||
+      process.env.MAIL_PORT ||
+      process.env.SMTP_PORT ||
+      "587"
+    );
+
+    const smtpUser =
+      process.env.COOLIFY_MAIL_USERNAME ||
+      process.env.COOLIFY_SMTP_USER ||
+      process.env.MAIL_USERNAME ||
+      process.env.SMTP_USER ||
+      process.env.MAIL_USER;
+
+    const smtpPass =
+      process.env.COOLIFY_MAIL_PASSWORD ||
+      process.env.COOLIFY_SMTP_PASS ||
+      process.env.MAIL_PASSWORD ||
+      process.env.SMTP_PASS ||
+      process.env.MAIL_PASS;
+
+    const fromAddress =
+      process.env.COOLIFY_MAIL_FROM_ADDRESS ||
+      process.env.MAIL_FROM_ADDRESS ||
+      process.env.SMTP_FROM ||
+      smtpUser ||
+      "info@fandrys.com";
+
+    // 1. Coolify Mail Service / SMTP Transport
     if (smtpHost && smtpUser && smtpPass) {
       try {
         const transporter = nodemailer.createTransport({
@@ -112,7 +144,7 @@ export async function POST(req: Request) {
         });
 
         await transporter.sendMail({
-          from: `"${name} via Fandrys Portal" <${smtpUser}>`,
+          from: `"${name} via Fandrys Portal" <${fromAddress}>`,
           replyTo: email,
           to: RECIPIENTS.join(", "),
           subject: `New Enquiry [${enquiryType}]: ${name}`,
@@ -121,9 +153,9 @@ export async function POST(req: Request) {
         });
 
         emailSent = true;
-        console.log(`[Enquiry API] SMTP email dispatched to ${RECIPIENTS.join(", ")}`);
+        console.log(`[Enquiry API] Coolify Mail Service dispatched email to ${RECIPIENTS.join(", ")}`);
       } catch (smtpErr) {
-        console.error("[Enquiry API] SMTP Transport error:", smtpErr);
+        console.error("[Enquiry API] Coolify Mail Service transport error:", smtpErr);
       }
     }
 
