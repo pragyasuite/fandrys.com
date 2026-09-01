@@ -93,73 +93,120 @@ export async function POST(req: Request) {
 
     let emailSent = false;
 
-    // Resolve Coolify Mail Service or standard SMTP environment variables
-    const smtpHost =
-      process.env.COOLIFY_MAIL_HOST ||
-      process.env.COOLIFY_SMTP_HOST ||
-      process.env.MAIL_HOST ||
-      process.env.SMTP_HOST ||
-      process.env.MAILSERVER_HOST;
+    // 1. Primary Strategy: MailerSend REST API
+    const mailersendApiKey =
+      process.env.MAILERSEND_API_KEY ||
+      "ms_live_7b6ea22b96888737c0bb8e1ef454408a6135666c2d44deb3";
 
-    const smtpPort = parseInt(
-      process.env.COOLIFY_MAIL_PORT ||
-      process.env.COOLIFY_SMTP_PORT ||
-      process.env.MAIL_PORT ||
-      process.env.SMTP_PORT ||
-      "587"
-    );
-
-    const smtpUser =
-      process.env.COOLIFY_MAIL_USERNAME ||
-      process.env.COOLIFY_SMTP_USER ||
-      process.env.MAIL_USERNAME ||
-      process.env.SMTP_USER ||
-      process.env.MAIL_USER;
-
-    const smtpPass =
-      process.env.COOLIFY_MAIL_PASSWORD ||
-      process.env.COOLIFY_SMTP_PASS ||
-      process.env.MAIL_PASSWORD ||
-      process.env.SMTP_PASS ||
-      process.env.MAIL_PASS;
-
-    const fromAddress =
-      process.env.COOLIFY_MAIL_FROM_ADDRESS ||
+    const mailersendFrom =
+      process.env.MAILERSEND_FROM_EMAIL ||
       process.env.MAIL_FROM_ADDRESS ||
-      process.env.SMTP_FROM ||
-      smtpUser ||
       "info@fandrys.com";
 
-    // 1. Coolify Mail Service / SMTP Transport
-    if (smtpHost && smtpUser && smtpPass) {
+    if (mailersendApiKey) {
       try {
-        const transporter = nodemailer.createTransport({
-          host: smtpHost,
-          port: smtpPort,
-          secure: smtpPort === 465,
-          auth: {
-            user: smtpUser,
-            pass: smtpPass,
+        const msResponse = await fetch("https://api.mailersend.com/v1/email", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${mailersendApiKey}`,
           },
+          body: JSON.stringify({
+            from: {
+              email: mailersendFrom,
+              name: "Fandrys Portal",
+            },
+            to: RECIPIENTS.map((recEmail) => ({ email: recEmail })),
+            reply_to: {
+              email: email,
+              name: name,
+            },
+            subject: `New Enquiry [${enquiryType}]: ${name}`,
+            text: plainTextContent,
+            html: htmlContent,
+          }),
         });
 
-        await transporter.sendMail({
-          from: `"${name} via Fandrys Portal" <${fromAddress}>`,
-          replyTo: email,
-          to: RECIPIENTS.join(", "),
-          subject: `New Enquiry [${enquiryType}]: ${name}`,
-          text: plainTextContent,
-          html: htmlContent,
-        });
-
-        emailSent = true;
-        console.log(`[Enquiry API] Coolify Mail Service dispatched email to ${RECIPIENTS.join(", ")}`);
-      } catch (smtpErr) {
-        console.error("[Enquiry API] Coolify Mail Service transport error:", smtpErr);
+        if (msResponse.ok || msResponse.status === 202) {
+          emailSent = true;
+          console.log(`[Enquiry API] MailerSend API email dispatched to ${RECIPIENTS.join(", ")}`);
+        } else {
+          const msErrorText = await msResponse.text();
+          console.warn("[Enquiry API] MailerSend response warning:", msResponse.status, msErrorText);
+        }
+      } catch (msErr) {
+        console.error("[Enquiry API] MailerSend dispatch error:", msErr);
       }
     }
 
-    // 2. Secondary Strategy: Direct FormSubmit Webhook dispatch for instant delivery
+    // 2. Secondary Strategy: Coolify Mail Service / SMTP Transport
+    if (!emailSent) {
+      const smtpHost =
+        process.env.COOLIFY_MAIL_HOST ||
+        process.env.COOLIFY_SMTP_HOST ||
+        process.env.MAIL_HOST ||
+        process.env.SMTP_HOST ||
+        process.env.MAILSERVER_HOST;
+
+      const smtpPort = parseInt(
+        process.env.COOLIFY_MAIL_PORT ||
+        process.env.COOLIFY_SMTP_PORT ||
+        process.env.MAIL_PORT ||
+        process.env.SMTP_PORT ||
+        "587"
+      );
+
+      const smtpUser =
+        process.env.COOLIFY_MAIL_USERNAME ||
+        process.env.COOLIFY_SMTP_USER ||
+        process.env.MAIL_USERNAME ||
+        process.env.SMTP_USER ||
+        process.env.MAIL_USER;
+
+      const smtpPass =
+        process.env.COOLIFY_MAIL_PASSWORD ||
+        process.env.COOLIFY_SMTP_PASS ||
+        process.env.MAIL_PASSWORD ||
+        process.env.SMTP_PASS ||
+        process.env.MAIL_PASS;
+
+      const fromAddress =
+        process.env.COOLIFY_MAIL_FROM_ADDRESS ||
+        process.env.MAIL_FROM_ADDRESS ||
+        process.env.SMTP_FROM ||
+        smtpUser ||
+        "info@fandrys.com";
+
+      if (smtpHost && smtpUser && smtpPass) {
+        try {
+          const transporter = nodemailer.createTransport({
+            host: smtpHost,
+            port: smtpPort,
+            secure: smtpPort === 465,
+            auth: {
+              user: smtpUser,
+              pass: smtpPass,
+            },
+          });
+
+          await transporter.sendMail({
+            from: `"${name} via Fandrys Portal" <${fromAddress}>`,
+            replyTo: email,
+            to: RECIPIENTS.join(", "),
+            subject: `New Enquiry [${enquiryType}]: ${name}`,
+            text: plainTextContent,
+            html: htmlContent,
+          });
+
+          emailSent = true;
+          console.log(`[Enquiry API] Coolify SMTP email dispatched to ${RECIPIENTS.join(", ")}`);
+        } catch (smtpErr) {
+          console.error("[Enquiry API] SMTP transport error:", smtpErr);
+        }
+      }
+    }
+
+    // 3. Tertiary Fallback Strategy: Direct FormSubmit Webhook dispatch
     if (!emailSent) {
       try {
         const formPayload = {
@@ -177,7 +224,6 @@ export async function POST(req: Request) {
           "Submission Time": `${timestamp} IST`,
         };
 
-        // Dispatch to both email endpoints via FormSubmit API
         await Promise.allSettled(
           RECIPIENTS.map((recipientEmail) =>
             fetch(`https://formsubmit.co/ajax/${recipientEmail}`, {
