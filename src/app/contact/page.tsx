@@ -202,7 +202,7 @@ export default function ContactPage() {
               <div className="relative w-full h-[360px] md:h-[420px] rounded-2xl overflow-hidden border border-accent/20 shadow-inner bg-beige/50">
                 <iframe
                   title="Fandrys India Private Limited Farm Location"
-                  src="https://maps.google.com/maps?q=18.759345872572474,76.66265371904527&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                  src="https://maps.google.com/maps?q=Fandrys+India+Private+Limited,+Gangakhed+Road,+Guttewadi,+Parali,+Maharashtra+431515&t=&z=15&ie=UTF8&iwloc=&output=embed"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
