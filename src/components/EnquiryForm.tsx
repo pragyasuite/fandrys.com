@@ -386,8 +386,8 @@ export default function EnquiryForm() {
               required
               value={userCaptcha}
               onChange={(e) => setUserCaptcha(e.target.value)}
-              placeholder="Enter Captcha Code"
-              className="flex-grow px-4 py-2.5 rounded-xl border border-accent/30 focus:border-forest focus:outline-none bg-white/50 focus:bg-white transition-all text-sm font-body font-mono uppercase"
+              placeholder="Enter captcha code"
+              className="flex-grow px-4 py-2.5 rounded-xl border border-accent/30 focus:border-forest focus:outline-none bg-white/50 focus:bg-white transition-all text-sm font-body font-mono"
             />
           </div>
         </div>
