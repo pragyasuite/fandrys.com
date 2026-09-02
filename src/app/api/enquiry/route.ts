@@ -3,6 +3,7 @@ import nodemailer from "nodemailer";
 
 // Backend recipient list as requested (never exposed on frontend UI)
 const RECIPIENTS = ["info@fandrys.com", "dataenquiry70@gmail.com"];
+const SITE_URL = process.env.SITE_URL || "https://www.fandrys.com";
 
 export async function POST(req: Request) {
   try {
@@ -93,50 +94,49 @@ export async function POST(req: Request) {
 
     let emailSent = false;
 
-    // 1. Primary Strategy: MailerSend REST API
-    const mailersendApiKey =
-      process.env.MAILERSEND_API_KEY ||
-      "ms_live_7b6ea22b96888737c0bb8e1ef454408a6135666c2d44deb3";
+    // 1. Primary Strategy: our self-hosted mail service (queues, retries and
+    // logs the send itself, so a 202 here is the handover we care about).
+    const mailServiceKey = process.env.MAIL_SERVICE_API_KEY;
+    const mailServiceUrl =
+      process.env.MAIL_SERVICE_URL || "https://mail-api.pragyasuite.com";
 
-    const mailersendFrom =
-      process.env.MAILERSEND_FROM_EMAIL ||
-      process.env.MAIL_FROM_ADDRESS ||
-      "info@fandrys.com";
-
-    if (mailersendApiKey) {
+    if (mailServiceKey) {
       try {
-        const msResponse = await fetch("https://api.mailersend.com/v1/email", {
+        const svcResponse = await fetch(`${mailServiceUrl}/api/mail/send`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${mailersendApiKey}`,
+            "X-API-Key": mailServiceKey,
           },
           body: JSON.stringify({
-            from: {
-              email: mailersendFrom,
-              name: "Fandrys Portal",
-            },
-            to: RECIPIENTS.map((recEmail) => ({ email: recEmail })),
-            reply_to: {
-              email: email,
-              name: name,
-            },
+            to: RECIPIENTS,
             subject: `New Enquiry [${enquiryType}]: ${name}`,
-            text: plainTextContent,
-            html: htmlContent,
+            htmlBody: htmlContent,
+            plainTextBody: plainTextContent,
+            customHeaders: {
+              "Reply-To": email,
+              "X-Source-System": "fandrys.com",
+            },
           }),
         });
 
-        if (msResponse.ok || msResponse.status === 202) {
+        if (svcResponse.ok) {
           emailSent = true;
-          console.log(`[Enquiry API] MailerSend API email dispatched to ${RECIPIENTS.join(", ")}`);
+          console.log(
+            `[Enquiry API] Mail service queued enquiry for ${RECIPIENTS.join(", ")}`
+          );
         } else {
-          const msErrorText = await msResponse.text();
-          console.warn("[Enquiry API] MailerSend response warning:", msResponse.status, msErrorText);
+          console.warn(
+            "[Enquiry API] Mail service rejected the send:",
+            svcResponse.status,
+            await svcResponse.text()
+          );
         }
-      } catch (msErr) {
-        console.error("[Enquiry API] MailerSend dispatch error:", msErr);
+      } catch (svcErr) {
+        console.error("[Enquiry API] Mail service dispatch error:", svcErr);
       }
+    } else {
+      console.warn("[Enquiry API] MAIL_SERVICE_API_KEY is not set; skipping mail service.");
     }
 
     // 2. Secondary Strategy: Coolify Mail Service / SMTP Transport
@@ -224,24 +224,57 @@ export async function POST(req: Request) {
           "Submission Time": `${timestamp} IST`,
         };
 
-        await Promise.allSettled(
+        const results = await Promise.allSettled(
           RECIPIENTS.map((recipientEmail) =>
             fetch(`https://formsubmit.co/ajax/${recipientEmail}`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json",
+                Origin: SITE_URL,
+                Referer: `${SITE_URL}/enquiry`,
               },
               body: JSON.stringify(formPayload),
             })
           )
         );
 
-        emailSent = true;
-        console.log(`[Enquiry API] Webhook email dispatched to ${RECIPIENTS.join(", ")}`);
+        // A refusal (unactivated address, missing origin) still comes back as
+        // HTTP 200, so the body is the only proof anything actually went out.
+        for (const result of results) {
+          if (result.status !== "fulfilled") {
+            console.warn("[Enquiry API] Webhook recipient failed:", result.reason);
+            continue;
+          }
+          const detail = await result.value.text();
+          if (result.value.ok && /"success"\s*:\s*"?true"?/.test(detail)) {
+            emailSent = true;
+          } else {
+            console.warn(
+              "[Enquiry API] Webhook recipient refused:",
+              result.value.status,
+              detail
+            );
+          }
+        }
+        if (emailSent) {
+          console.log(`[Enquiry API] Webhook email dispatched to ${RECIPIENTS.join(", ")}`);
+        }
       } catch (webhookErr) {
         console.error("[Enquiry API] Webhook dispatch error:", webhookErr);
       }
+    }
+
+    if (!emailSent) {
+      console.error("[Enquiry API] All transports failed; enquiry not delivered.");
+      return NextResponse.json(
+        {
+          success: false,
+          error:
+            "We could not submit your enquiry. Please call +91 90286 44499 or email info@fandrys.com.",
+        },
+        { status: 502 }
+      );
     }
 
     return NextResponse.json({
