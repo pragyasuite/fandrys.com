@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  const googleShareUrl = "https://maps.app.goo.gl/TSsfvoVtTuPwLdC19";
+  const googleShareUrl = "https://maps.app.goo.gl/13WdfHXY5UNHULcY9";
 
   return (
     <div className="bg-background min-h-screen">
@@ -202,7 +202,7 @@ export default function ContactPage() {
               <div className="relative w-full h-[360px] md:h-[420px] rounded-2xl overflow-hidden border border-accent/20 shadow-inner bg-beige/50">
                 <iframe
                   title="Fandrys India Private Limited Farm Location"
-                  src="https://maps.google.com/maps?q=Gangakhed+Road+Parali+Beed+Maharashtra+431515&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                  src="https://maps.google.com/maps?q=Guttewadi,+Gangakhed+Road,+Parali,+Beed,+Maharashtra+431515&t=&z=14&ie=UTF8&iwloc=&output=embed"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
