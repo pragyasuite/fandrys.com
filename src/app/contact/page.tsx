@@ -202,13 +202,13 @@ export default function ContactPage() {
               <div className="relative w-full h-[360px] md:h-[420px] rounded-2xl overflow-hidden border border-accent/20 shadow-inner bg-beige/50">
                 <iframe
                   title="Fandrys India Private Limited Farm Location"
-                  src="https://maps.google.com/maps?q=Fandrys+India+Private+Limited,+Gangakhed+Road,+Guttewadi,+Parali,+Maharashtra+431515&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3777.875621843434!2d76.6624606!3d18.759091899999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcfed410a2045d1%3A0xd89e334b46c0769a!2sFandrys%20India%20Private%20Limited!5e0!3m2!1sen!2sin!4v1788345651804!5m2!1sen!2sin"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
                   allowFullScreen={false}
                   loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
+                  referrerPolicy="strict-origin-when-cross-origin"
                   className="w-full h-full"
                 />
               </div>
