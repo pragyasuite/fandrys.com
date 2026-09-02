@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Send, CheckCircle2, AlertCircle, X, ShieldCheck, Clock, FileText } from "lucide-react";
+import { Send, CheckCircle2, AlertCircle, X, ShieldCheck, Clock, FileText, RotateCw } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function EnquiryForm() {
@@ -16,10 +16,30 @@ export default function EnquiryForm() {
     message: "",
   });
 
+  // Helper to generate a random 6-character alphanumeric Captcha string
+  const createCaptchaString = () => {
+    const chars = "23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz";
+    let code = "";
+    for (let i = 0; i < 6; i++) {
+      code += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return code;
+  };
+
+  // Initialize captchaCode with lazy initial state
+  const [captchaCode, setCaptchaCode] = useState<string>(createCaptchaString);
+  const [userCaptcha, setUserCaptcha] = useState("");
+
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [referenceCode, setReferenceCode] = useState("");
   const [submittedDetails, setSubmittedDetails] = useState({ name: "", enquiryType: "" });
+
+  // Function to refresh Captcha code
+  const generateCaptcha = () => {
+    setCaptchaCode(createCaptchaString());
+    setUserCaptcha("");
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -28,9 +48,18 @@ export default function EnquiryForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (!formData.name || !formData.phone || !formData.email || !formData.message) {
       setStatus("error");
       setErrorMessage("Please fill in all required fields (Name, Phone, Email, and Message).");
+      return;
+    }
+
+    // Validate Alphanumeric Captcha
+    if (userCaptcha.trim().toLowerCase() !== captchaCode.toLowerCase()) {
+      setStatus("error");
+      setErrorMessage("Invalid Captcha code. Please enter the correct characters displayed in the security box.");
+      generateCaptcha();
       return;
     }
 
@@ -58,10 +87,12 @@ export default function EnquiryForm() {
       } else {
         setStatus("error");
         setErrorMessage(data.error || "Failed to submit enquiry. Please try again.");
+        generateCaptcha();
       }
     } catch {
       setStatus("error");
       setErrorMessage("An unexpected network error occurred. Please try again later.");
+      generateCaptcha();
     }
   };
 
@@ -77,6 +108,7 @@ export default function EnquiryForm() {
       quantity: "",
       message: "",
     });
+    generateCaptcha();
   };
 
   return (
@@ -321,6 +353,43 @@ export default function EnquiryForm() {
             placeholder="Please specify your detailed requirements (e.g. weight requirements, delivery timelines, shipping destination)..."
             className="px-4 py-3 rounded-xl border border-accent/30 focus:border-forest focus:outline-none bg-white/50 focus:bg-white transition-all text-sm font-body resize-none"
           />
+        </div>
+
+        {/* Security Alphanumeric Captcha */}
+        <div className="flex flex-col gap-2 pt-2 border-t border-accent/15">
+          <label htmlFor="captchaInput" className="font-body text-xs font-bold uppercase tracking-wider text-forest/80">
+            Security Verification (Captcha) <span className="text-red-500">*</span>
+          </label>
+          
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            {/* Styled Alphanumeric Display Box */}
+            <div className="flex items-center gap-2 bg-[#121212] border border-accent/30 px-4 py-2.5 rounded-xl shadow-inner select-none relative overflow-hidden shrink-0">
+              <div className="absolute inset-0 bg-gradient-to-r from-forest/20 via-transparent to-forest/20 pointer-events-none" />
+              <span className="font-mono font-bold text-xl tracking-[0.25em] text-[#C5A880] italic select-none transform -skew-x-6">
+                {captchaCode}
+              </span>
+              <button
+                type="button"
+                onClick={generateCaptcha}
+                className="p-1.5 text-white/60 hover:text-white hover:bg-white/10 rounded-lg transition-colors ml-2"
+                title="Generate New Captcha Code"
+              >
+                <RotateCw className="h-4 w-4" />
+              </button>
+            </div>
+
+            {/* User Captcha Text Input */}
+            <input
+              type="text"
+              id="captchaInput"
+              name="captchaInput"
+              required
+              value={userCaptcha}
+              onChange={(e) => setUserCaptcha(e.target.value)}
+              placeholder="Enter Captcha Code"
+              className="flex-grow px-4 py-3 rounded-xl border border-accent/30 focus:border-forest focus:outline-none bg-white/50 focus:bg-white transition-all text-sm font-body font-mono uppercase"
+            />
+          </div>
         </div>
 
         {/* Submit Button */}

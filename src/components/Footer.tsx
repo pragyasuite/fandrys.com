@@ -4,7 +4,7 @@ import { Phone, Mail, MapPin, MessageCircle, ShieldCheck, Award, Star, ExternalL
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  const googleShareUrl = "https://share.google/II9iq7YVZUzeq8xrX";
+  const googleShareUrl = "https://maps.app.goo.gl/TSsfvoVtTuPwLdC19";
 
   return (
     <footer className="bg-[#121212] text-warm-white relative overflow-hidden border-t border-white/5 pt-20 pb-8">

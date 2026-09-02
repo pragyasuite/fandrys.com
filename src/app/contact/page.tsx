@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  const googleShareUrl = "https://share.google/II9iq7YVZUzeq8xrX";
+  const googleShareUrl = "https://maps.app.goo.gl/TSsfvoVtTuPwLdC19";
 
   return (
     <div className="bg-background min-h-screen">
