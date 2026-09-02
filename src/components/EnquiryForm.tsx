@@ -200,14 +200,14 @@ export default function EnquiryForm() {
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="mb-8 p-6 bg-rose-50 border border-rose-200 rounded-xl flex items-start gap-4 text-rose-900"
+          className="mb-6 p-5 bg-rose-50 border border-rose-200 rounded-xl flex items-start gap-4 text-rose-900"
         >
           <AlertCircle className="h-6 w-6 text-rose-600 shrink-0 mt-0.5" />
           <div>
-            <h3 className="font-display font-bold text-lg text-rose-950 mb-1">
+            <h3 className="font-display font-bold text-base text-rose-950 mb-0.5">
               Submission Error
             </h3>
-            <p className="font-body text-sm leading-relaxed text-rose-800">
+            <p className="font-body text-xs md:text-sm leading-relaxed text-rose-800">
               {errorMessage}
             </p>
           </div>
@@ -215,10 +215,10 @@ export default function EnquiryForm() {
       )}
 
       {/* 3. ENQUIRY FORM */}
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Full Name */}
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-1">
             <label htmlFor="name" className="font-body text-xs font-bold uppercase tracking-wider text-forest/80">
               Your Name <span className="text-red-500">*</span>
             </label>
@@ -230,12 +230,12 @@ export default function EnquiryForm() {
               value={formData.name}
               onChange={handleChange}
               placeholder="e.g. Rahul Sharma"
-              className="px-4 py-3 rounded-xl border border-accent/30 focus:border-forest focus:outline-none bg-white/50 focus:bg-white transition-all text-sm font-body"
+              className="px-4 py-2.5 rounded-xl border border-accent/30 focus:border-forest focus:outline-none bg-white/50 focus:bg-white transition-all text-sm font-body"
             />
           </div>
 
           {/* Company / Organization */}
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-1">
             <label htmlFor="company" className="font-body text-xs font-bold uppercase tracking-wider text-forest/80">
               Company / Organization
             </label>
@@ -246,12 +246,12 @@ export default function EnquiryForm() {
               value={formData.company}
               onChange={handleChange}
               placeholder="e.g. Farm name or business (Optional)"
-              className="px-4 py-3 rounded-xl border border-accent/30 focus:border-forest focus:outline-none bg-white/50 focus:bg-white transition-all text-sm font-body"
+              className="px-4 py-2.5 rounded-xl border border-accent/30 focus:border-forest focus:outline-none bg-white/50 focus:bg-white transition-all text-sm font-body"
             />
           </div>
 
           {/* Phone Number */}
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-1">
             <label htmlFor="phone" className="font-body text-xs font-bold uppercase tracking-wider text-forest/80">
               Phone Number <span className="text-red-500">*</span>
             </label>
@@ -263,12 +263,12 @@ export default function EnquiryForm() {
               value={formData.phone}
               onChange={handleChange}
               placeholder="e.g. +91 98765 43210"
-              className="px-4 py-3 rounded-xl border border-accent/30 focus:border-forest focus:outline-none bg-white/50 focus:bg-white transition-all text-sm font-body"
+              className="px-4 py-2.5 rounded-xl border border-accent/30 focus:border-forest focus:outline-none bg-white/50 focus:bg-white transition-all text-sm font-body"
             />
           </div>
 
           {/* Email Address */}
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-1">
             <label htmlFor="email" className="font-body text-xs font-bold uppercase tracking-wider text-forest/80">
               Email Address <span className="text-red-500">*</span>
             </label>
@@ -280,12 +280,12 @@ export default function EnquiryForm() {
               value={formData.email}
               onChange={handleChange}
               placeholder="e.g. name@example.com"
-              className="px-4 py-3 rounded-xl border border-accent/30 focus:border-forest focus:outline-none bg-white/50 focus:bg-white transition-all text-sm font-body"
+              className="px-4 py-2.5 rounded-xl border border-accent/30 focus:border-forest focus:outline-none bg-white/50 focus:bg-white transition-all text-sm font-body"
             />
           </div>
 
           {/* Country */}
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-1">
             <label htmlFor="country" className="font-body text-xs font-bold uppercase tracking-wider text-forest/80">
               Country
             </label>
@@ -296,12 +296,12 @@ export default function EnquiryForm() {
               value={formData.country}
               onChange={handleChange}
               placeholder="e.g. India"
-              className="px-4 py-3 rounded-xl border border-accent/30 focus:border-forest focus:outline-none bg-white/50 focus:bg-white transition-all text-sm font-body"
+              className="px-4 py-2.5 rounded-xl border border-accent/30 focus:border-forest focus:outline-none bg-white/50 focus:bg-white transition-all text-sm font-body"
             />
           </div>
 
           {/* Enquiry Type */}
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-1">
             <label htmlFor="enquiryType" className="font-body text-xs font-bold uppercase tracking-wider text-forest/80">
               Enquiry Type
             </label>
@@ -310,7 +310,7 @@ export default function EnquiryForm() {
               name="enquiryType"
               value={formData.enquiryType}
               onChange={handleChange}
-              className="px-4 py-3 rounded-xl border border-accent/30 focus:border-forest focus:outline-none bg-white/50 focus:bg-white transition-all text-sm font-body appearance-none cursor-pointer"
+              className="px-4 py-2.5 rounded-xl border border-accent/30 focus:border-forest focus:outline-none bg-white/50 focus:bg-white transition-all text-sm font-body appearance-none cursor-pointer"
             >
               <option value="Adult Pigs">Adult Pigs</option>
               <option value="Piglets">Piglets</option>
@@ -323,7 +323,7 @@ export default function EnquiryForm() {
         </div>
 
         {/* Quantity Required */}
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-1">
           <label htmlFor="quantity" className="font-body text-xs font-bold uppercase tracking-wider text-forest/80">
             Quantity Required
           </label>
@@ -334,12 +334,12 @@ export default function EnquiryForm() {
             value={formData.quantity}
             onChange={handleChange}
             placeholder="e.g. Number of heads or metric tons"
-            className="px-4 py-3 rounded-xl border border-accent/30 focus:border-forest focus:outline-none bg-white/50 focus:bg-white transition-all text-sm font-body"
+            className="px-4 py-2.5 rounded-xl border border-accent/30 focus:border-forest focus:outline-none bg-white/50 focus:bg-white transition-all text-sm font-body"
           />
         </div>
 
         {/* Message */}
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-1">
           <label htmlFor="message" className="font-body text-xs font-bold uppercase tracking-wider text-forest/80">
             Enquiry Details / Message <span className="text-red-500">*</span>
           </label>
@@ -347,23 +347,23 @@ export default function EnquiryForm() {
             id="message"
             name="message"
             required
-            rows={5}
+            rows={4}
             value={formData.message}
             onChange={handleChange}
             placeholder="Please specify your detailed requirements (e.g. weight requirements, delivery timelines, shipping destination)..."
-            className="px-4 py-3 rounded-xl border border-accent/30 focus:border-forest focus:outline-none bg-white/50 focus:bg-white transition-all text-sm font-body resize-none"
+            className="px-4 py-2.5 rounded-xl border border-accent/30 focus:border-forest focus:outline-none bg-white/50 focus:bg-white transition-all text-sm font-body resize-none"
           />
         </div>
 
         {/* Security Alphanumeric Captcha */}
-        <div className="flex flex-col gap-2 pt-2 border-t border-accent/15">
+        <div className="flex flex-col gap-1.5 pt-2 border-t border-accent/15">
           <label htmlFor="captchaInput" className="font-body text-xs font-bold uppercase tracking-wider text-forest/80">
             Security Verification (Captcha) <span className="text-red-500">*</span>
           </label>
           
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
             {/* Styled Alphanumeric Display Box */}
-            <div className="flex items-center gap-2 bg-[#121212] border border-accent/30 px-4 py-2.5 rounded-xl shadow-inner select-none relative overflow-hidden shrink-0">
+            <div className="flex items-center gap-2 bg-[#121212] border border-accent/30 px-4 py-2 rounded-xl shadow-inner select-none relative overflow-hidden shrink-0">
               <div className="absolute inset-0 bg-gradient-to-r from-forest/20 via-transparent to-forest/20 pointer-events-none" />
               <span className="font-mono font-bold text-xl tracking-[0.25em] text-[#C5A880] italic select-none transform -skew-x-6">
                 {captchaCode}
@@ -387,7 +387,7 @@ export default function EnquiryForm() {
               value={userCaptcha}
               onChange={(e) => setUserCaptcha(e.target.value)}
               placeholder="Enter Captcha Code"
-              className="flex-grow px-4 py-3 rounded-xl border border-accent/30 focus:border-forest focus:outline-none bg-white/50 focus:bg-white transition-all text-sm font-body font-mono uppercase"
+              className="flex-grow px-4 py-2.5 rounded-xl border border-accent/30 focus:border-forest focus:outline-none bg-white/50 focus:bg-white transition-all text-sm font-body font-mono uppercase"
             />
           </div>
         </div>
@@ -396,7 +396,7 @@ export default function EnquiryForm() {
         <button
           type="submit"
           disabled={status === "submitting"}
-          className="w-full bg-forest text-warm-white hover:bg-forest-light py-4 rounded-xl font-body font-bold text-xs tracking-wider uppercase transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          className="w-full bg-forest text-warm-white hover:bg-forest-light py-3.5 rounded-xl font-body font-bold text-xs tracking-wider uppercase transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-2"
         >
           {status === "submitting" ? (
             <>
